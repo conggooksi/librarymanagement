@@ -1,4 +1,4 @@
-package MyHouse.librarymanagement.publisher.repository;
+package librarymanagement.domain.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,11 +7,10 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "publisher")
+@Table(name = "author")
 @NoArgsConstructor
 @Getter
-public class PublisherVo {
-
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long publisherId;
