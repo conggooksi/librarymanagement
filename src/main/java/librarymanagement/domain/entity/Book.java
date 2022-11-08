@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "book")
@@ -18,11 +20,15 @@ public class Book extends BaseEntity{
     @Column(name = "book_id")
     private Long id;
 
+    @Column(name = "book_title")
     private String title;
 
-    private String author;
+    @OneToMany(mappedBy = "book")
+    private List<BookAuthor> bookAuthorList = new ArrayList<>();
 
-    private String publisher;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
 
     private String bookClassificationNumber;
 
@@ -31,26 +37,14 @@ public class Book extends BaseEntity{
 
     private int price;
 
-    @Builder(builderMethodName = "bookVoBuilder", builderClassName = "bookVoBuilder")
-    public Book(long bookId, String title, String author, String publisher, String bookClassificationNumber, String introduction, int price) {
-        this.id = bookId;
+    @Builder(builderMethodName = "bookBuilder", builderClassName = "bookBuilder")
+    public Book(Long id, String title, List<BookAuthor> bookAuthorList, Publisher publisher, String bookClassificationNumber, String introduction, int price) {
+        this.id = id;
         this.title = title;
-        this.author = author;
+        this.bookAuthorList = bookAuthorList;
         this.publisher = publisher;
         this.bookClassificationNumber = bookClassificationNumber;
         this.introduction = introduction;
         this.price = price;
     }
-
-    public static Book toEntity(BookRequest bookRequest) {
-        return bookVoBuilder()
-                .title(bookRequest.getTitle())
-                .author(bookRequest.getAuthor())
-                .publisher(bookRequest.getPublisher())
-                .bookClassificationNumber(bookRequest.getBookClassificationNumber())
-                .introduction(bookRequest.getIntroduction())
-                .price(bookRequest.getPrice())
-                .build();
-    }
-
 }
