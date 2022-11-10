@@ -5,16 +5,14 @@ import librarymanagement.domain.entity.Author;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class AuthorResponse {
-
+public class AuthorDetail {
     private Long authorId;
     private String authorName;
 
@@ -23,30 +21,26 @@ public class AuthorResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime updatedAt;
 
-    @Builder(builderMethodName = "listBuilder", builderClassName = "listBuilder")
-    public AuthorResponse(Long authorId, String authorName, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    private List<BookResponse> bookList;
+
+    @Builder(builderMethodName = "of",builderClassName = "of")
+    public AuthorDetail(Long authorId, String authorName, LocalDateTime createdAt, LocalDateTime updatedAt, List<BookResponse> bookList) {
         this.authorId = authorId;
         this.authorName = authorName;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.bookList = bookList;
     }
 
-    public static AuthorResponse toDto(Author author) {
-        return AuthorResponse.listBuilder()
+    public static AuthorDetail toDto(Author author){
+        return of()
                 .authorId(author.getId())
                 .authorName(author.getName())
                 .createdAt(author.getCreatedAt())
                 .updatedAt(author.getUpdatedAt())
+                .bookList(author.getBookAuthorList()
+                        .stream().map(bookAuthor -> BookResponse.toDto(bookAuthor.getBook()))
+                        .collect(Collectors.toList()))
                 .build();
-    }
-
-
-    public Page<AuthorResponse> toPage(Page<Author> author){
-        Page<AuthorResponse> authorList = author.map(m -> AuthorResponse.listBuilder()
-                .authorId(m.getId())
-                .createdAt(m.getCreatedAt())
-                .updatedAt(m.getUpdatedAt())
-                .build());
-        return authorList;
     }
 }

@@ -1,5 +1,6 @@
 package librarymanagement.domain.entity;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,16 +12,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "author")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Author extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "author_id", insertable = false, updatable = false)
     @Column(name = "author_id")
     private Long id;
 
-//    @Column(insertable = false, updatable = false)
     @Column(name = "author_name")
     private String name;
 

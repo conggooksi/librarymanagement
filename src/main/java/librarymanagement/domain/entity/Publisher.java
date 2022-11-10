@@ -13,10 +13,9 @@ public class Publisher extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(insertable = false, updatable = false)
-    private Long publisherId;
+    @Column(name="publisher_id")
+    private Long id;
 
-//    @Column(insertable = false, updatable = false)
     @Column(name = "publisher_name")
     private String name;
 

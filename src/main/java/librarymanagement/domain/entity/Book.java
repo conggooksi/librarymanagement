@@ -23,10 +23,10 @@ public class Book extends BaseEntity{
     @Column(name = "book_title")
     private String title;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<BookAuthor> bookAuthorList = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
