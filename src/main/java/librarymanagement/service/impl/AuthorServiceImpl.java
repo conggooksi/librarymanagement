@@ -53,4 +53,17 @@ public class AuthorServiceImpl implements AuthorService {
                 () -> new RuntimeException());
         authorRepository.delete(author);
     }
+
+    @Override
+    @Transactional
+    public Author modifyAuthor(Long authorId, AuthorRequest authorRequest) {
+        Author author = authorRepository.findById(authorId).orElseThrow(
+                () -> new RuntimeException());
+
+        author.changeName(authorRequest);
+
+        return author;
+    }
+
+
 }

@@ -1,30 +1,20 @@
 package librarymanagement.repository.impl;
 
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
 import librarymanagement.domain.entity.Author;
-import librarymanagement.domain.entity.Book;
-import librarymanagement.domain.entity.BookAuthor;
 import librarymanagement.domain.request.AuthorSearch;
-import librarymanagement.domain.response.AuthorResponse;
 import librarymanagement.repository.AuthorCustomRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.data.support.PageableExecutionUtils;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
 
 import static librarymanagement.domain.entity.QAuthor.author;
-import static librarymanagement.domain.entity.QBook.book;
-import static librarymanagement.domain.entity.QBookAuthor.bookAuthor;
 
 public class AuthorRepositoryImpl extends QuerydslRepositorySupport implements AuthorCustomRepository {
 
@@ -46,8 +36,6 @@ public class AuthorRepositoryImpl extends QuerydslRepositorySupport implements A
         List<Author> result = getQuerydsl().applyPagination(pageable, jpaQuery).fetch();
         return PageableExecutionUtils.getPage(result, pageable, jpaQuery::fetchCount);
     }
-
-
 
     private BooleanExpression authorNameEq(String authorName) {
         return authorName != null ? author.name.eq(authorName) : null;

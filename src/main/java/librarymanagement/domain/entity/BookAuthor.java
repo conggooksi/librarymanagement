@@ -1,7 +1,7 @@
 package librarymanagement.domain.entity;
 
+import librarymanagement.common.entity.BaseEntity;
 import lombok.Getter;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
 

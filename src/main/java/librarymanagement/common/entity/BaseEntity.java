@@ -1,4 +1,4 @@
-package librarymanagement.domain.entity;
+package librarymanagement.common.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

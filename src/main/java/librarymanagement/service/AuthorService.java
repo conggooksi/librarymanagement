@@ -1,5 +1,6 @@
 package librarymanagement.service;
 
+import librarymanagement.domain.entity.Author;
 import librarymanagement.domain.request.AuthorRequest;
 import librarymanagement.domain.request.AuthorSearch;
 import librarymanagement.domain.response.AuthorDetail;
@@ -15,4 +16,6 @@ public interface AuthorService {
     AuthorDetail getAuthor(Long authorId);
 
     void deleteAuthor(Long authorId);
+
+    Author modifyAuthor(Long authorId, AuthorRequest authorRequest);
 }

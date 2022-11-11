@@ -1,5 +1,6 @@
 package librarymanagement.controller;
 
+import librarymanagement.common.result.ResponseHandler;
 import librarymanagement.domain.request.AuthorRequest;
 import librarymanagement.domain.request.AuthorSearch;
 import librarymanagement.domain.response.AuthorResponse;
@@ -40,10 +41,32 @@ public class AuthorController {
         return ResponseEntity.ok(authorService.getAuthor(authorId));
     }
 
+    @GetMapping("/v2/{author_id}")
+    public ResponseEntity<?> getAuthorV2(@PathVariable(value = "author_id") Long authorId){
+        return ResponseHandler.generate()
+                .data(authorService.getAuthor(authorId))
+                .status(HttpStatus.OK)
+                .build();
+    }
+
     @DeleteMapping("/{author_id}")
     public ResponseEntity<?> deleteAuthor(@PathVariable(value = "author_id") Long authorId) {
         authorService.deleteAuthor(authorId);
         return ResponseEntity.ok(null);
     }
 
+    @PatchMapping("/{author_id}")
+    public ResponseEntity<?> modifyAuthor(@PathVariable(value = "author_id") Long authorId, @RequestBody @Valid AuthorRequest authorRequest) {
+        authorService.modifyAuthor(authorId, authorRequest);
+
+        return ResponseEntity.ok(null);
+
+//        return ResponseHandler.generate()
+//                .data(authorService.modifyAuthor(authorId, authorRequest))
+//                .status(HttpStatus.OK)
+//                .build();
+
+
+
+    }
 }

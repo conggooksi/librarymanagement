@@ -1,10 +1,9 @@
 package librarymanagement.domain.entity;
 
-import librarymanagement.domain.request.BookRequest;
+import librarymanagement.common.entity.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.List;
 @Table(name = "book")
 @Getter
 @NoArgsConstructor
-public class Book extends BaseEntity{
+public class Book extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")

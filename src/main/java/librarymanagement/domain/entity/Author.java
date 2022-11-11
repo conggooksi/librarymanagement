@@ -1,10 +1,11 @@
 package librarymanagement.domain.entity;
 
+import librarymanagement.common.entity.BaseEntity;
+import librarymanagement.domain.request.AuthorRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 @Table(name = "author")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Author extends BaseEntity{
+public class Author extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")
@@ -31,6 +32,10 @@ public class Author extends BaseEntity{
         this.id = id;
         this.name = name;
         this.bookAuthorList = bookAuthorList;
+    }
+
+    public void changeName(AuthorRequest authorRequest) {
+        this.name = authorRequest.getAuthorName();
     }
 
     @Builder(builderClassName = "createBuilder",builderMethodName = "createBuilder")
