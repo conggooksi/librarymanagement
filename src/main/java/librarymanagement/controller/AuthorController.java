@@ -60,13 +60,6 @@ public class AuthorController {
         authorService.modifyAuthor(authorId, authorRequest);
 
         return ResponseEntity.ok(null);
-
-//        return ResponseHandler.generate()
-//                .data(authorService.modifyAuthor(authorId, authorRequest))
-//                .status(HttpStatus.OK)
-//                .build();
-
-
-
+        
     }
 }

@@ -13,7 +13,7 @@ public class PublisherRequest {
     @NotNull
     String publisherName;
 
-    public Publisher toEntity(PublisherRequest publisherRequest) {
+    public static Publisher toEntity(PublisherRequest publisherRequest) {
         return Publisher.createBuilder()
                 .name(publisherRequest.publisherName)
                 .build();
