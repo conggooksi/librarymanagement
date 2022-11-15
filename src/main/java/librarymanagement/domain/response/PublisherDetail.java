@@ -1,6 +1,8 @@
 package librarymanagement.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import librarymanagement.domain.entity.Book;
+import librarymanagement.domain.entity.BookAuthor;
 import librarymanagement.domain.entity.Publisher;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +11,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static librarymanagement.domain.entity.QBook.book;
+import static librarymanagement.domain.entity.QBookAuthor.bookAuthor;
 
 @Data
 @NoArgsConstructor

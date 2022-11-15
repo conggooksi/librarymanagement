@@ -16,8 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -71,10 +69,13 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public PublisherDetail getPublisher(Long publisherId) {
-        return PublisherDetail.toDto(publisherRepository.findByIdDetail(publisherId).orElseThrow(() -> ApiException.builder()
+        Publisher publisher = publisherRepository.findByIdDetail(publisherId).orElseThrow(
+                () -> ApiException.builder()
                         .errorMessage(PublisherErrorCode.NOT_FOUND_ID.getMessage())
                         .errorCode(PublisherErrorCode.NOT_FOUND_ID.getCode())
                         .status(HttpStatus.BAD_REQUEST)
-                        .build()));
+                        .build());
+
+        return PublisherDetail.toDto(publisher);
     }
 }

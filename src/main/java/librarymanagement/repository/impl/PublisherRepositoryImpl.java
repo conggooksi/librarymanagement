@@ -1,12 +1,10 @@
 package librarymanagement.repository.impl;
 
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import librarymanagement.domain.entity.Publisher;
 import librarymanagement.domain.request.PublisherSearch;
-import librarymanagement.domain.response.PublisherDetail;
 import librarymanagement.repository.PublisherCustomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,11 +12,12 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.data.support.PageableExecutionUtils;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
 import java.util.Optional;
 
+import static librarymanagement.domain.entity.QAuthor.author;
 import static librarymanagement.domain.entity.QBook.book;
+import static librarymanagement.domain.entity.QBookAuthor.bookAuthor;
 import static librarymanagement.domain.entity.QPublisher.publisher;
 
 public class PublisherRepositoryImpl extends QuerydslRepositorySupport implements PublisherCustomRepository {
@@ -38,7 +37,6 @@ public class PublisherRepositoryImpl extends QuerydslRepositorySupport implement
                         publisherNameContains(publisherSearch.getPublisherName()));
 
         List<Publisher> result = getQuerydsl().applyPagination(pageable, jpaQuery).fetch();
-
         return PageableExecutionUtils.getPage(result, pageable, jpaQuery::fetchCount);
     }
 
@@ -50,7 +48,6 @@ public class PublisherRepositoryImpl extends QuerydslRepositorySupport implement
                 .fetchJoin()
                 .where(publisher.id.eq(publisherId))
                 .fetchOne());
-
     }
 
     private BooleanExpression publisherNameContains(String publisherName) {

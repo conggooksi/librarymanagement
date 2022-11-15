@@ -2,6 +2,7 @@ package librarymanagement.domain.entity;
 
 import librarymanagement.common.entity.BaseEntity;
 import librarymanagement.domain.request.PublisherRequest;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "publisher")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Publisher extends BaseEntity {
 

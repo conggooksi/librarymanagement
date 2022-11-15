@@ -1,12 +1,15 @@
 package librarymanagement.domain.entity;
 
 import librarymanagement.common.entity.BaseEntity;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BookAuthor extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
