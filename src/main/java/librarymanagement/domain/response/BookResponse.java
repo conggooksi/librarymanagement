@@ -1,5 +1,6 @@
 package librarymanagement.domain.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import librarymanagement.domain.entity.Book;
 import librarymanagement.domain.entity.BookAuthor;
 import librarymanagement.domain.entity.Publisher;
@@ -18,6 +19,7 @@ import static librarymanagement.domain.entity.QBookAuthor.bookAuthor;
 
 @Data
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookResponse {
 
     private Long id;

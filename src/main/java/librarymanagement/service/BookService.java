@@ -12,4 +12,6 @@ import java.util.List;
 public interface BookService {
 
     Page<BookResponse> getBooks(BookSearch bookSearch, Pageable pageable);
+
+    Long deleteBook(Long bookId);
 }

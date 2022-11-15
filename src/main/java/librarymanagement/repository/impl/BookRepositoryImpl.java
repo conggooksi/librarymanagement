@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -48,7 +49,7 @@ public class BookRepositoryImpl extends QuerydslRepositorySupport implements Boo
     }
 
     private BooleanExpression bookClassificationNumberEq(String bookClassificationNumber) {
-        return bookClassificationNumber != null && !"".equals(bookClassificationNumber) ? book.bookClassificationNumber.eq(bookClassificationNumber) : null;
+        return StringUtils.hasText(bookClassificationNumber) ? book.bookClassificationNumber.eq(bookClassificationNumber) : null;
     }
 
     private BooleanExpression bookMinPrice(Integer minPrice) {

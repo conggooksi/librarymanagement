@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 public class AuthorRequest {
-    @NotBlank
+
     private String authorName;
 
     public Author toEntity(AuthorRequest authorRequest) {
