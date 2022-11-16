@@ -17,5 +17,5 @@ public interface AuthorService {
 
     Long deleteAuthor(Long authorId);
 
-    Author modifyAuthor(Long authorId, AuthorRequest authorRequest);
+    Long modifyAuthor(Long authorId, AuthorRequest authorRequest);
 }

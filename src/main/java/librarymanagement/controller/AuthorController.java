@@ -3,6 +3,7 @@ package librarymanagement.controller;
 import librarymanagement.common.exception.ApiException;
 import librarymanagement.common.exception.code.AuthorErrorCode;
 import librarymanagement.common.result.ResponseHandler;
+import librarymanagement.domain.entity.Author;
 import librarymanagement.domain.request.AuthorRequest;
 import librarymanagement.domain.request.AuthorSearch;
 import librarymanagement.domain.response.AuthorDetail;
@@ -74,9 +75,12 @@ public class AuthorController {
 
     @PatchMapping("/{author_id}")
     public ResponseEntity<?> modifyAuthor(@PathVariable(value = "author_id") Long authorId, @RequestBody @Valid AuthorRequest authorRequest) {
-        authorService.modifyAuthor(authorId, authorRequest);
+        Long author = authorService.modifyAuthor(authorId, authorRequest);
 
-        return ResponseEntity.ok(null);
+        return ResponseHandler.generate()
+                .data(author)
+                .status(HttpStatus.OK)
+                .build();
 
     }
 }

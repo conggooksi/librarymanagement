@@ -3,6 +3,7 @@ package librarymanagement.controller;
 import librarymanagement.common.result.ResponseHandler;
 import librarymanagement.domain.request.PublisherRequest;
 import librarymanagement.domain.request.PublisherSearch;
+import librarymanagement.domain.response.PublisherDetail;
 import librarymanagement.domain.response.PublisherResponse;
 import librarymanagement.service.PublisherService;
 import lombok.RequiredArgsConstructor;
@@ -36,21 +37,28 @@ public class PublisherController {
     @GetMapping("")
     public ResponseEntity<?> getPublishers(PublisherSearch publisherSearch, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<PublisherResponse> publisherList = publisherService.getPublishers(publisherSearch, pageable);
-        return new ResponseEntity<>(publisherList, HttpStatus.OK);
+        return ResponseHandler.generate()
+                .data(publisherList)
+                .status(HttpStatus.OK)
+                .build();
     }
 
     @GetMapping("/{publisher_id}")
-    public ResponseEntity<?> getPublisher(@PathVariable(value = "publisher_id") Long publisherId) {
+    public ResponseEntity<?> getPublisherDetail(@PathVariable(value = "publisher_id") Long publisherId) {
+        PublisherDetail publisher = publisherService.getPublisher(publisherId);
+
         return ResponseHandler.generate()
-                .data(publisherService.getPublisher(publisherId))
+                .data(publisher)
                 .status(HttpStatus.OK)
                 .build();
     }
 
     @PatchMapping("/{publisher_id}")
     public ResponseEntity<?> modifyPublisher(@PathVariable(value = "publisher_id") Long publisherId, @RequestBody @Valid PublisherRequest publisherRequest) {
+        Long publisher = publisherService.modifyPublisher(publisherId, publisherRequest);
+
         return ResponseHandler.generate()
-                .data(publisherService.modifyPublisher(publisherId, publisherRequest))
+                .data(publisher)
                 .status(HttpStatus.OK)
                 .build();
     }

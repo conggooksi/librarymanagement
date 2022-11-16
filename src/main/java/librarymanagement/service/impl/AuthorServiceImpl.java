@@ -73,13 +73,17 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional
-    public Author modifyAuthor(Long authorId, AuthorRequest authorRequest) {
+    public Long modifyAuthor(Long authorId, AuthorRequest authorRequest) {
         Author author = authorRepository.findById(authorId).orElseThrow(
-                () -> new RuntimeException());
+                () -> ApiException.builder()
+                        .errorMessage(AuthorErrorCode.NOT_FOUND_ID.getMessage())
+                        .errorCode(AuthorErrorCode.NOT_FOUND_ID.getCode())
+                        .status(HttpStatus.BAD_REQUEST)
+                        .build());
 
         author.changeName(authorRequest);
 
-        return author;
+        return author.getId();
     }
 
 
