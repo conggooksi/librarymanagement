@@ -41,6 +41,6 @@ public class AuthorDetail {
                 .bookList(author.getBookAuthorList()
                         .stream().map(bookAuthor -> BookResponse.toDto(bookAuthor.getBook()))
                         .collect(Collectors.toList()))
-                .build();
+                .build();//쿼리 한방으로
     }
 }

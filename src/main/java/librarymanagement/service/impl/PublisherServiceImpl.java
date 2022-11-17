@@ -62,7 +62,7 @@ public class PublisherServiceImpl implements PublisherService {
                     .build();
         }
 
-        publisher.changeName(publisherRequest);
+        publisher.changeName(publisherRequest); //스트링 이름으로
 
         return publisher.getId();
     }

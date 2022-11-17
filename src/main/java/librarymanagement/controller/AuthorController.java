@@ -30,14 +30,6 @@ public class AuthorController {
 
     @PostMapping("")
     public ResponseEntity<?> addAuthor(@RequestBody @Valid AuthorRequest authorRequest) {
-        if(!StringUtils.hasText(authorRequest.getAuthorName())) {
-            throw ApiException.builder()
-                    .errorMessage(AuthorErrorCode.BAD_REQUEST_AUTHOR.getMessage())
-                    .errorCode(AuthorErrorCode.BAD_REQUEST_AUTHOR.getCode())
-                    .status(HttpStatus.BAD_REQUEST)
-                    .build();
-        }
-
         Long authorId = authorService.addAuthor(authorRequest);
         return ResponseHandler.generate()
                 .data(authorId)

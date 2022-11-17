@@ -34,7 +34,7 @@ public class Author extends BaseEntity {
         this.bookAuthorList = bookAuthorList;
     }
 
-    public void changeName(AuthorRequest authorRequest) {
+    public void changeName(AuthorRequest authorRequest) { //String name 으로 받아서.. 굳이 디티오 말고
         this.name = authorRequest.getAuthorName();
     }
 

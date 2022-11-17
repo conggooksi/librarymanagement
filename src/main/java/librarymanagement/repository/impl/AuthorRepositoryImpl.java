@@ -38,7 +38,7 @@ public class AuthorRepositoryImpl extends QuerydslRepositorySupport implements A
     }
 
     private BooleanExpression authorNameEq(String authorName) {
-        return authorName != null ? author.name.eq(authorName) : null;
+        return authorName != null ? author.name.eq(authorName) : null; //공백처리
     }
 
     private BooleanExpression authorIdEq(Long authorId) {

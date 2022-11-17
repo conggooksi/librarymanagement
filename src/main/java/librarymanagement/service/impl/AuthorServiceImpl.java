@@ -62,8 +62,8 @@ public class AuthorServiceImpl implements AuthorService {
     public Long deleteAuthor(Long authorId) {
         Author author = authorRepository.findById(authorId).orElseThrow(
                 () -> ApiException.builder()
-                        .errorMessage(BookErrorCode.NOT_FOUND_ID.getMessage())
-                        .errorCode(BookErrorCode.NOT_FOUND_ID.getCode())
+                        .errorMessage(AuthorErrorCode.NOT_FOUND_ID.getMessage())
+                        .errorCode(AuthorErrorCode.NOT_FOUND_ID.getCode())
                         .status(HttpStatus.BAD_REQUEST)
                         .build());
         authorRepository.delete(author);
@@ -81,7 +81,7 @@ public class AuthorServiceImpl implements AuthorService {
                         .status(HttpStatus.BAD_REQUEST)
                         .build());
 
-        author.changeName(authorRequest);
+        author.changeName(authorRequest); // static method로
 
         return author.getId();
     }
