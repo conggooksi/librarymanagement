@@ -40,7 +40,7 @@ public class Publisher extends BaseEntity {
         this.name = name;
     }
 
-    public void changeName(PublisherRequest publisherRequest) {
-        this.name = publisherRequest.getPublisherName();
+    public void changeName(Publisher publisher, String publisherName) {
+        publisher.name = publisherName;
     }
 }

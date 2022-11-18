@@ -15,7 +15,7 @@ public interface PublisherService {
 
     Page<PublisherResponse> getPublishers(PublisherSearch publisherSearch, Pageable pageable);
 
-    Long modifyPublisher(Long publisherId, PublisherRequest publisherRequest);
+    Long modifyPublisher(Long publisherId, String publisherName);
 
     PublisherDetail getPublisher(Long publisherId);
 }

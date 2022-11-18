@@ -46,7 +46,7 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     @Transactional
-    public Long modifyPublisher(Long publisherId, PublisherRequest publisherRequest) {
+    public Long modifyPublisher(Long publisherId, String publisherName) {
         Publisher publisher = publisherRepository.findById(publisherId).orElseThrow(
                 () -> ApiException.builder()
                         .errorMessage(PublisherErrorCode.NOT_FOUND_ID.getMessage())
@@ -54,7 +54,7 @@ public class PublisherServiceImpl implements PublisherService {
                         .status(HttpStatus.BAD_REQUEST)
                         .build());
 
-        if (publisherRepository.existsByIdNotAndName(publisherId, publisherRequest.getPublisherName())) {
+        if (publisherRepository.existsByIdNotAndName(publisherId, publisherName)) {
             throw ApiException.builder()
                     .errorMessage(PublisherErrorCode.OVERLAP_PUBLISHER.getMessage())
                     .errorCode(PublisherErrorCode.OVERLAP_PUBLISHER.getCode())
@@ -62,7 +62,7 @@ public class PublisherServiceImpl implements PublisherService {
                     .build();
         }
 
-        publisher.changeName(publisherRequest); //스트링 이름으로
+        publisher.changeName(publisher, publisherName);
 
         return publisher.getId();
     }
