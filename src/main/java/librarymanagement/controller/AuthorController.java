@@ -66,8 +66,8 @@ public class AuthorController {
     }
 
     @PatchMapping("/{author_id}")
-    public ResponseEntity<?> modifyAuthor(@PathVariable(value = "author_id") Long authorId, @RequestBody @Valid AuthorRequest authorRequest) {
-        Long author = authorService.modifyAuthor(authorId, authorRequest);
+    public ResponseEntity<?> modifyAuthor(@PathVariable(value = "author_id") Long authorId, @RequestBody @Valid String authorName) {
+        Long author = authorService.modifyAuthor(authorId, authorName);
 
         return ResponseHandler.generate()
                 .data(author)

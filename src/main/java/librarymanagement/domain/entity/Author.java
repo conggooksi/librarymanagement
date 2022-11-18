@@ -1,7 +1,6 @@
 package librarymanagement.domain.entity;
 
 import librarymanagement.common.entity.BaseEntity;
-import librarymanagement.domain.request.AuthorRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,14 +33,14 @@ public class Author extends BaseEntity {
         this.bookAuthorList = bookAuthorList;
     }
 
-    public void changeName(AuthorRequest authorRequest) { //String name 으로 받아서.. 굳이 디티오 말고
-        this.name = authorRequest.getAuthorName();
-    }
-
     @Builder(builderClassName = "createBuilder",builderMethodName = "createBuilder")
     public static Author create(String name) {
         return of()
                 .name(name)
                 .build();
+    }
+
+    public static void changeAuthorName(Author author, String authorName) {
+        author.name = authorName;
     }
 }

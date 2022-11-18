@@ -73,7 +73,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional
-    public Long modifyAuthor(Long authorId, AuthorRequest authorRequest) {
+    public Long modifyAuthor(Long authorId, String authorName) {
         Author author = authorRepository.findById(authorId).orElseThrow(
                 () -> ApiException.builder()
                         .errorMessage(AuthorErrorCode.NOT_FOUND_ID.getMessage())
@@ -81,10 +81,8 @@ public class AuthorServiceImpl implements AuthorService {
                         .status(HttpStatus.BAD_REQUEST)
                         .build());
 
-        author.changeName(authorRequest); // static method로
+        Author.changeAuthorName(author,authorName);
 
         return author.getId();
     }
-
-
 }

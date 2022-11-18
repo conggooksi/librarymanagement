@@ -17,5 +17,5 @@ public interface AuthorService {
 
     Long deleteAuthor(Long authorId);
 
-    Long modifyAuthor(Long authorId, AuthorRequest authorRequest);
+    Long modifyAuthor(Long authorId, String authorName);
 }
