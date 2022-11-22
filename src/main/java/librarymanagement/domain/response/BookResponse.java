@@ -2,20 +2,11 @@ package librarymanagement.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import librarymanagement.domain.entity.Book;
-import librarymanagement.domain.entity.BookAuthor;
-import librarymanagement.domain.entity.Publisher;
-import librarymanagement.domain.entity.QBook;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
-
-import static librarymanagement.domain.entity.QBook.book;
-import static librarymanagement.domain.entity.QBookAuthor.bookAuthor;
 
 @Data
 @NoArgsConstructor
@@ -51,22 +42,22 @@ public class BookResponse {
 
     public static BookResponse toDto(Book book) {
         return BookResponse.bookBuilder()
-                .id(book.getId())
-                .title(book.getTitle())
-                .publisher(book.getPublisher().getName())
-                .author(book.getBookAuthorList().stream().map(bookAuthor -> bookAuthor.getAuthor().getName()).collect(Collectors.joining(",")))
+                .id(book.getBookId())
+                .title(book.getBookTitle())
+                .publisher(book.getBookPublisher().getName())
+                .author(book.getBookAuthorList().stream().map(bookAuthor -> bookAuthor.getAuthor().getAuthorName()).collect(Collectors.joining(",")))
                 .bookClassificationNumber(book.getBookClassificationNumber())
-                .introduction(book.getIntroduction())
-                .price(book.getPrice())
+                .introduction(book.getBookIntroduction())
+                .price(book.getBookPrice())
                 .build();
     }
 
     public static BookResponse toSearch(Book book) {
         return BookResponse.searchBuilder()
-                .id(book.getId())
-                .title(book.getTitle())
+                .id(book.getBookId())
+                .title(book.getBookTitle())
                 .bookClassificationNumber(book.getBookClassificationNumber())
-                .price(book.getPrice())
+                .price(book.getBookPrice())
                 .build();
     }
 }

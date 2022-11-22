@@ -1,5 +1,6 @@
 package librarymanagement.domain.request;
 
+import librarymanagement.domain.entity.Book;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

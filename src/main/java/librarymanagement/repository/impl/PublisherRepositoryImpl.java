@@ -15,9 +15,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-import static librarymanagement.domain.entity.QAuthor.author;
 import static librarymanagement.domain.entity.QBook.book;
-import static librarymanagement.domain.entity.QBookAuthor.bookAuthor;
 import static librarymanagement.domain.entity.QPublisher.publisher;
 
 public class PublisherRepositoryImpl extends QuerydslRepositorySupport implements PublisherCustomRepository {

@@ -1,7 +1,6 @@
 package librarymanagement.domain.entity;
 
 import librarymanagement.common.entity.BaseEntity;
-import librarymanagement.domain.request.PublisherRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,7 +24,7 @@ public class Publisher extends BaseEntity {
     @Column(name = "publisher_name")
     private String name;
 
-    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bookPublisher", cascade = CascadeType.ALL)
     private List<Book> bookList = new ArrayList<>();
 
     @Builder(builderClassName = "of", builderMethodName = "of")

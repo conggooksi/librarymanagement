@@ -54,8 +54,8 @@ public class PublisherController {
     }
 
     @PatchMapping("/{publisher_id}")
-    public ResponseEntity<?> modifyPublisher(@PathVariable(value = "publisher_id") Long publisherId, @RequestBody @Valid PublisherRequest publisherRequest) {
-        Long publisher = publisherService.modifyPublisher(publisherId, publisherRequest);
+    public ResponseEntity<?> modifyPublisher(@PathVariable(value = "publisher_id") Long publisherId, @RequestBody @Valid String publisherName) {
+        Long publisher = publisherService.modifyPublisher(publisherId, publisherName);
 
         return ResponseHandler.generate()
                 .data(publisher)

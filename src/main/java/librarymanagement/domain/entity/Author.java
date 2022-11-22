@@ -18,18 +18,18 @@ public class Author extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")
-    private Long id;
+    private Long authorId;
 
     @Column(name = "author_name")
-    private String name;
+    private String authorName;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<BookAuthor> bookAuthorList = new ArrayList<>();
 
     @Builder(builderMethodName = "of", builderClassName = "of")
     public Author(Long id, String name, List<BookAuthor> bookAuthorList) {
-        this.id = id;
-        this.name = name;
+        this.authorId = id;
+        this.authorName = name;
         this.bookAuthorList = bookAuthorList;
     }
 
@@ -41,6 +41,6 @@ public class Author extends BaseEntity {
     }
 
     public static void changeAuthorName(Author author, String authorName) {
-        author.name = authorName;
+        author.authorName = authorName;
     }
 }

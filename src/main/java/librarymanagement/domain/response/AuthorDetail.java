@@ -2,6 +2,8 @@ package librarymanagement.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import librarymanagement.domain.entity.Author;
+import librarymanagement.domain.entity.BookAuthor;
+import librarymanagement.domain.entity.Publisher;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +26,7 @@ public class AuthorDetail {
     private List<BookResponse> bookList;
 
     @Builder(builderMethodName = "of",builderClassName = "of")
-    public AuthorDetail(Long authorId, String authorName, LocalDateTime createdAt, LocalDateTime updatedAt, List<BookResponse> bookList) {
+    public AuthorDetail(Long authorId, String authorName, LocalDateTime createdAt, LocalDateTime updatedAt, List<BookResponse> bookList, Long bookId, String bookTitle, Publisher bookPublisher, String bookClassificationNumber, String bookIntroduction, int bookPrice) {
         this.authorId = authorId;
         this.authorName = authorName;
         this.createdAt = createdAt;
@@ -34,8 +36,8 @@ public class AuthorDetail {
 
     public static AuthorDetail toDto(Author author){
         return of()
-                .authorId(author.getId())
-                .authorName(author.getName())
+                .authorId(author.getAuthorId())
+                .authorName(author.getAuthorName())
                 .createdAt(author.getCreatedAt())
                 .updatedAt(author.getUpdatedAt())
                 .bookList(author.getBookAuthorList()

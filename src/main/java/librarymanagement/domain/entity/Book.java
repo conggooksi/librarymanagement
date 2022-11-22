@@ -18,33 +18,46 @@ public class Book extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
-    private Long id;
+    private Long bookId;
 
     @Column(name = "book_title")
-    private String title;
+    private String bookTitle;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<BookAuthor> bookAuthorList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_id")
-    private Publisher publisher;
+    private Publisher bookPublisher;
 
     private String bookClassificationNumber;
 
     @Lob
-    private String introduction;
+    @Column(name = "introduction")
+    private String bookIntroduction;
 
-    private int price;
+    @Column(name = "price")
+    private int bookPrice;
 
     @Builder(builderMethodName = "bookBuilder", builderClassName = "bookBuilder")
     public Book(Long id, String title, List<BookAuthor> bookAuthorList, Publisher publisher, String bookClassificationNumber, String introduction, int price) {
-        this.id = id;
-        this.title = title;
+        this.bookId = id;
+        this.bookTitle = title;
         this.bookAuthorList = bookAuthorList;
-        this.publisher = publisher;
+        this.bookPublisher = publisher;
         this.bookClassificationNumber = bookClassificationNumber;
-        this.introduction = introduction;
-        this.price = price;
+        this.bookIntroduction = introduction;
+        this.bookPrice = price;
+    }
+
+    @Builder(builderMethodName = "createBuilder", builderClassName = "createBuilder")
+    public Book(Long id, String title, Author author, Publisher publisher, String bookClassificationNumber, String introduction, int price) {
+        this.bookId = id;
+        this.bookTitle = title;
+
+        this.bookPublisher = publisher;
+        this.bookClassificationNumber = bookClassificationNumber;
+        this.bookIntroduction = introduction;
+        this.bookPrice = price;
     }
 }

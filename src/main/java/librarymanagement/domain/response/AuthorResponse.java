@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 
@@ -33,8 +31,8 @@ public class AuthorResponse {
 
     public static AuthorResponse toDto(Author author) {
         return AuthorResponse.listBuilder()
-                .authorId(author.getId())
-                .authorName(author.getName())
+                .authorId(author.getAuthorId())
+                .authorName(author.getAuthorName())
                 .createdAt(author.getCreatedAt())
                 .updatedAt(author.getUpdatedAt())
                 .build();
@@ -43,7 +41,7 @@ public class AuthorResponse {
 
     public Page<AuthorResponse> toPage(Page<Author> author){
         Page<AuthorResponse> authorList = author.map(m -> AuthorResponse.listBuilder()
-                .authorId(m.getId())
+                .authorId(m.getAuthorId())
                 .createdAt(m.getCreatedAt())
                 .updatedAt(m.getUpdatedAt())
                 .build());

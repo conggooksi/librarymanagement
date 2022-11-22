@@ -2,8 +2,8 @@ package librarymanagement.service.impl;
 
 import librarymanagement.common.exception.ApiException;
 import librarymanagement.common.exception.code.BookErrorCode;
-import librarymanagement.common.exception.code.PublisherErrorCode;
 import librarymanagement.domain.entity.Book;
+import librarymanagement.domain.request.BookRequest;
 import librarymanagement.domain.request.BookSearch;
 import librarymanagement.domain.response.BookResponse;
 import librarymanagement.repository.BookRepository;

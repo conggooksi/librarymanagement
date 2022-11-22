@@ -1,10 +1,13 @@
 package librarymanagement.repository.impl;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import librarymanagement.domain.entity.Author;
+import librarymanagement.domain.entity.QAuthor;
 import librarymanagement.domain.request.AuthorSearch;
+import librarymanagement.domain.response.AuthorDetail;
 import librarymanagement.repository.AuthorCustomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,8 +16,11 @@ import org.springframework.data.support.PageableExecutionUtils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 import static librarymanagement.domain.entity.QAuthor.author;
+import static librarymanagement.domain.entity.QBook.book;
+import static librarymanagement.domain.entity.QBookAuthor.bookAuthor;
 
 public class AuthorRepositoryImpl extends QuerydslRepositorySupport implements AuthorCustomRepository {
 
@@ -37,11 +43,23 @@ public class AuthorRepositoryImpl extends QuerydslRepositorySupport implements A
         return PageableExecutionUtils.getPage(result, pageable, jpaQuery::fetchCount);
     }
 
+    @Override
+    public Optional<Author> findByIdDetail(Long authorId) {
+        return Optional.ofNullable(queryFactory.select(QAuthor.author)
+                .from(QAuthor.author)
+                .innerJoin(QAuthor.author.bookAuthorList, bookAuthor)
+                .fetchJoin()
+                .innerJoin(bookAuthor.book, book)
+                .fetchJoin()
+                .where(authorIdEq(authorId))
+                .fetchOne());
+    }
+
     private BooleanExpression authorNameEq(String authorName) {
-        return authorName != null ? author.name.eq(authorName) : null; //공백처리
+        return authorName != null ? author.authorName.eq(authorName) : null; //공백처리
     }
 
     private BooleanExpression authorIdEq(Long authorId) {
-        return authorId != null && authorId > 0 ? author.id.eq(authorId) : null;
+        return authorId != null && authorId > 0 ? author.authorId.eq(authorId) : null;
     }
 }

@@ -1,6 +1,7 @@
 package librarymanagement.controller;
 
 import librarymanagement.common.result.ResponseHandler;
+import librarymanagement.domain.request.BookRequest;
 import librarymanagement.domain.request.BookSearch;
 import librarymanagement.domain.response.AuthorResponse;
 import librarymanagement.domain.response.BookResponse;

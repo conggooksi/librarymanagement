@@ -2,17 +2,13 @@ package librarymanagement.service.impl;
 
 import librarymanagement.common.exception.ApiException;
 import librarymanagement.common.exception.code.AuthorErrorCode;
-import librarymanagement.common.exception.code.BookErrorCode;
-import librarymanagement.common.exception.code.PublisherErrorCode;
 import librarymanagement.domain.entity.Author;
-import librarymanagement.domain.entity.Book;
 import librarymanagement.domain.request.AuthorRequest;
 import librarymanagement.domain.request.AuthorSearch;
 import librarymanagement.domain.response.AuthorDetail;
 import librarymanagement.domain.response.AuthorResponse;
 import librarymanagement.repository.AuthorRepository;
 import librarymanagement.service.AuthorService;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +32,7 @@ public class AuthorServiceImpl implements AuthorService {
         Author author = authorRequest.toEntity(authorRequest);
         authorRepository.save(author);
 
-        return author.getId();
+        return author.getAuthorId();
     }
 
     @Override
@@ -48,7 +44,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorDetail getAuthor(Long authorId) {
-        Author author = authorRepository.findById(authorId).orElseThrow(
+        Author author = authorRepository.findByIdDetail(authorId).orElseThrow(
                 () -> ApiException.builder()
                         .errorMessage(AuthorErrorCode.NOT_FOUND_ID.getMessage())
                         .errorCode(AuthorErrorCode.NOT_FOUND_ID.getCode())
@@ -68,7 +64,7 @@ public class AuthorServiceImpl implements AuthorService {
                         .build());
         authorRepository.delete(author);
 
-        return author.getId();
+        return author.getAuthorId();
     }
 
     @Override
@@ -83,6 +79,6 @@ public class AuthorServiceImpl implements AuthorService {
 
         Author.changeAuthorName(author,authorName);
 
-        return author.getId();
+        return author.getAuthorId();
     }
 }
