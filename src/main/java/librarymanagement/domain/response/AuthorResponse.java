@@ -31,7 +31,7 @@ public class AuthorResponse {
 
     public static AuthorResponse toDto(Author author) {
         return AuthorResponse.listBuilder()
-                .authorId(author.getAuthorId())
+                .authorId(author.getId())
                 .authorName(author.getAuthorName())
                 .createdAt(author.getCreatedAt())
                 .updatedAt(author.getUpdatedAt())
@@ -41,7 +41,7 @@ public class AuthorResponse {
 
     public Page<AuthorResponse> toPage(Page<Author> author){
         Page<AuthorResponse> authorList = author.map(m -> AuthorResponse.listBuilder()
-                .authorId(m.getAuthorId())
+                .authorId(m.getId())
                 .createdAt(m.getCreatedAt())
                 .updatedAt(m.getUpdatedAt())
                 .build());

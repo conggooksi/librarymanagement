@@ -25,8 +25,14 @@ public class BookController {
 
     private final BookService bookService;
 
-
     // 도서 등록도 추가
+    @PostMapping("")
+    public ResponseEntity<?> addBook(@RequestBody BookRequest bookRequest) {
+        bookService.addBook(bookRequest);
+
+        return null;
+    }
+
     @GetMapping("")
     public ResponseEntity<?> getBooks(@RequestBody BookSearch bookSearch, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<BookResponse> searchedBooks = bookService.getBooks(bookSearch, pageable);

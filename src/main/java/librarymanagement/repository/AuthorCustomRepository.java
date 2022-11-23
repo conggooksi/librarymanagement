@@ -14,5 +14,5 @@ public interface AuthorCustomRepository {
 
     Page<Author> findAuthor(AuthorSearch authorSearch, Pageable pageable);
 
-    Optional<Author> findByIdDetail(Long authorId);
+    List<AuthorDetail> findByIdDetail(Long authorId);
 }

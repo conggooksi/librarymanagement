@@ -18,7 +18,7 @@ public class Author extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")
-    private Long authorId;
+    private Long id;
 
     @Column(name = "author_name")
     private String authorName;
@@ -28,7 +28,7 @@ public class Author extends BaseEntity {
 
     @Builder(builderMethodName = "of", builderClassName = "of")
     public Author(Long id, String name, List<BookAuthor> bookAuthorList) {
-        this.authorId = id;
+        this.id = id;
         this.authorName = name;
         this.bookAuthorList = bookAuthorList;
     }

@@ -24,7 +24,7 @@ public class Publisher extends BaseEntity {
     @Column(name = "publisher_name")
     private String name;
 
-    @OneToMany(mappedBy = "bookPublisher", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "publisherId", cascade = CascadeType.ALL)
     private List<Book> bookList = new ArrayList<>();
 
     @Builder(builderClassName = "of", builderMethodName = "of")

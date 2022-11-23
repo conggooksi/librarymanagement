@@ -22,14 +22,9 @@ public class BookRequest {
 
     private int price;
 
-    @Builder(builderClassName = "of", builderMethodName = "of")
-    public BookRequest(List<Long> authorIds, Long publisherId, String bookTitle, String bookClassificationNumber, String introduction, int price) {
-        this.bookTitle = bookTitle;
-        this.authorIds = authorIds;
-        this.publisherId = publisherId;
-        this.bookClassificationNumber = bookClassificationNumber;
-        this.introduction = introduction;
-        this.price = price;
+    public Book toEntity(BookRequest bookRequest) {
+//        return Book.bookBuilder();
+        return null;
     }
 }
 

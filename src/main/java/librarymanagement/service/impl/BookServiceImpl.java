@@ -42,4 +42,11 @@ public class BookServiceImpl implements BookService {
 
         return book.getId();
     }
+
+    @Override
+    public Long addBook(BookRequest bookRequest) {
+        bookRequest.toEntity(bookRequest);
+
+        return null;
+    }
 }

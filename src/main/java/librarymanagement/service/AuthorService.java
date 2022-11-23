@@ -8,12 +8,14 @@ import librarymanagement.domain.response.AuthorResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface AuthorService {
     Long addAuthor(AuthorRequest authorRequest);
 
     Page<AuthorResponse> getAuthors(AuthorSearch authorSearch, Pageable pageable);
 
-    AuthorDetail getAuthor(Long authorId);
+    List<AuthorDetail> getAuthor(Long authorId);
 
     Long deleteAuthor(Long authorId);
 

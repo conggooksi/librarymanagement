@@ -40,8 +40,8 @@ public class BookRepositoryImpl extends QuerydslRepositorySupport implements Boo
         return PageableExecutionUtils.getPage(result, pageable, jpaQuery::fetchCount);
     }
 
-    private BooleanExpression bookIdEq(Long id) {
-        return id != null && id > 0 ? book.bookId.eq(id) : null;
+    private BooleanExpression bookIdEq(Long bookId) {
+        return bookId != null && bookId > 0 ? book.id.eq(bookId) : null;
     }
 
     private BooleanExpression bookTitleContain(String title) {
@@ -53,10 +53,10 @@ public class BookRepositoryImpl extends QuerydslRepositorySupport implements Boo
     }
 
     private BooleanExpression bookMinPrice(Integer minPrice) {
-        return minPrice != null ? book.bookPrice.gt(minPrice) : null;
+        return minPrice != null ? book.price.gt(minPrice) : null;
     }
 
     private BooleanExpression bookMaxPrice(Integer maxPrice) {
-        return maxPrice != null ? book.bookPrice.lt(maxPrice) : null;
+        return maxPrice != null ? book.price.lt(maxPrice) : null;
     }
 }

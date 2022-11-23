@@ -32,7 +32,7 @@ public class AuthorServiceImpl implements AuthorService {
         Author author = authorRequest.toEntity(authorRequest);
         authorRepository.save(author);
 
-        return author.getAuthorId();
+        return author.getId();
     }
 
     @Override
@@ -43,14 +43,16 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorDetail getAuthor(Long authorId) {
-        Author author = authorRepository.findByIdDetail(authorId).orElseThrow(
-                () -> ApiException.builder()
-                        .errorMessage(AuthorErrorCode.NOT_FOUND_ID.getMessage())
-                        .errorCode(AuthorErrorCode.NOT_FOUND_ID.getCode())
-                        .status(HttpStatus.BAD_REQUEST)
-                        .build());
-        return AuthorDetail.toDto(author);
+    public List<AuthorDetail> getAuthor(Long authorId) {
+//        AuthorDetail author = authorRepository.findByIdDetail(authorId).orElseThrow(
+//                () -> ApiException.builder()
+//                        .errorMessage(AuthorErrorCode.NOT_FOUND_ID.getMessage())
+//                        .errorCode(AuthorErrorCode.NOT_FOUND_ID.getCode())
+//                        .status(HttpStatus.BAD_REQUEST)
+//                        .build());
+        List<AuthorDetail> author = authorRepository.findByIdDetail(authorId);
+
+        return author;
     }
 
     @Override
@@ -64,7 +66,7 @@ public class AuthorServiceImpl implements AuthorService {
                         .build());
         authorRepository.delete(author);
 
-        return author.getAuthorId();
+        return author.getId();
     }
 
     @Override
@@ -79,6 +81,6 @@ public class AuthorServiceImpl implements AuthorService {
 
         Author.changeAuthorName(author,authorName);
 
-        return author.getAuthorId();
+        return author.getId();
     }
 }
