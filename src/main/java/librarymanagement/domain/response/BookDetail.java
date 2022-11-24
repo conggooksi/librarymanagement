@@ -14,13 +14,13 @@ public class BookDetail {
 
     private Long bookId;
     private String bookTitle;
-    private Publisher bookPublisher;
+    private String bookPublisher;
     private String bookClassificationNumber;
     private String bookInroduction;
     private Integer bookPrice;
 
     @Builder(builderMethodName = "bookBuilder", builderClassName = "bookBuilder")
-    public BookDetail(Long id, String title, Publisher publisher, String bookClassificationNumber, String introduction, Integer price) {
+    public BookDetail(Long id, String title, String publisher, String bookClassificationNumber, String introduction, Integer price) {
         this.bookId = id;
         this.bookTitle = title;
         this.bookPublisher = publisher;
@@ -41,7 +41,7 @@ public class BookDetail {
         return BookDetail.bookBuilder()
                 .id(book.getId())
                 .title(book.getBookTitle())
-//                .publisher(book.getBookPublisher().getName())
+                .publisher(book.getPublisherId().getName())
                 .bookClassificationNumber(book.getBookClassificationNumber())
                 .introduction(book.getIntroduction())
                 .price(book.getPrice())

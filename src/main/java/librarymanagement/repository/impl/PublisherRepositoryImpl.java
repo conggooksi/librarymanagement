@@ -5,7 +5,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import librarymanagement.domain.entity.Publisher;
 import librarymanagement.domain.request.PublisherSearch;
-import librarymanagement.repository.PublisherCustomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;

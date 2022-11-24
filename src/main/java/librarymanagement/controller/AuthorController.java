@@ -49,8 +49,7 @@ public class AuthorController {
 
     @GetMapping("/{author_id}")
     public ResponseEntity<?> getAuthor(@PathVariable (value = "author_id") Long authorId){
-//        AuthorDetail author = authorService.getAuthor(authorId);
-        List<AuthorDetail> author = authorService.getAuthor(authorId);
+        AuthorDetail author = authorService.getAuthor(authorId);
 
         return ResponseHandler.generate()
                 .data(author)

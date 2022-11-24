@@ -15,7 +15,7 @@ public interface AuthorService {
 
     Page<AuthorResponse> getAuthors(AuthorSearch authorSearch, Pageable pageable);
 
-    List<AuthorDetail> getAuthor(Long authorId);
+    AuthorDetail getAuthor(Long authorId);
 
     Long deleteAuthor(Long authorId);
 

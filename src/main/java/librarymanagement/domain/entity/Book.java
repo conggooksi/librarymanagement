@@ -50,11 +50,10 @@ public class Book extends BaseEntity {
     }
 
     @Builder(builderMethodName = "createBuilder", builderClassName = "createBuilder")
-    public Book(Long id, String title, Author author, Publisher publisher, String bookClassificationNumber, String introduction, int price) {
+    public Book(Long id, String bookTitle, Publisher publisherId, String bookClassificationNumber, String introduction, int price) {
         this.id = id;
-        this.bookTitle = title;
-
-        this.publisherId = publisher;
+        this.publisherId = publisherId;
+        this.bookTitle = bookTitle;
         this.bookClassificationNumber = bookClassificationNumber;
         this.introduction = introduction;
         this.price = price;

@@ -1,15 +1,10 @@
 package librarymanagement.repository.impl;
 
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import librarymanagement.domain.entity.Author;
-import librarymanagement.domain.entity.QAuthor;
 import librarymanagement.domain.request.AuthorSearch;
-import librarymanagement.domain.response.AuthorDetail;
-import librarymanagement.domain.response.BookDetail;
-import librarymanagement.domain.response.BookResponse;
 import librarymanagement.repository.AuthorCustomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,13 +15,9 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-import static com.querydsl.core.group.GroupBy.groupBy;
-import static com.querydsl.core.types.Projections.list;
-import static librarymanagement.domain.entity.QAuthor.*;
 import static librarymanagement.domain.entity.QAuthor.author;
 import static librarymanagement.domain.entity.QBook.book;
 import static librarymanagement.domain.entity.QBookAuthor.bookAuthor;
-import static librarymanagement.domain.entity.QPublisher.publisher;
 
 public class AuthorRepositoryImpl extends QuerydslRepositorySupport implements AuthorCustomRepository {
 
@@ -50,21 +41,15 @@ public class AuthorRepositoryImpl extends QuerydslRepositorySupport implements A
     }
 
     @Override
-    public List<AuthorDetail> findByIdDetail(Long authorId) {
-        List<AuthorDetail> result = queryFactory.select(Projections.constructor(AuthorDetail.class,
-                        author.id, author.authorName,
-                        list(Projections.constructor(BookResponse.class,
-                                        book.id,
-                                        book.bookTitle,
-                                        book.bookClassificationNumber,
-                                        book.price)),
-                        author.createdAt, author.updatedAt))
+    public Optional<Author> findByIdDetail(Long authorId) {
+        Optional<Author> result = Optional.ofNullable(queryFactory.select(author)
                 .from(author)
                 .innerJoin(author.bookAuthorList, bookAuthor)
+                .fetchJoin()
                 .innerJoin(bookAuthor.book, book)
-                .where(authorIdEq(authorId))
-                .groupBy(author.id, book.id, book.bookTitle, book.bookClassificationNumber, book.price)
-                .fetch();
+                .fetchJoin()
+                .where(author.id.eq(authorId))
+                .fetchOne());
 
         return result;
     }

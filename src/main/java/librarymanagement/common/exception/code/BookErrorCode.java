@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum BookErrorCode {
-    NOT_FOUND_ID("NOT_FOUND_ID", "아이디를 찾을 수 없습니다.");
+    NOT_FOUND_ID("NOT_FOUND_ID", "도서 아이디를 찾을 수 없습니다.");
     private final String code;
     private final String message;
 

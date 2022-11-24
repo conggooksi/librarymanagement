@@ -43,16 +43,15 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<AuthorDetail> getAuthor(Long authorId) {
-//        AuthorDetail author = authorRepository.findByIdDetail(authorId).orElseThrow(
-//                () -> ApiException.builder()
-//                        .errorMessage(AuthorErrorCode.NOT_FOUND_ID.getMessage())
-//                        .errorCode(AuthorErrorCode.NOT_FOUND_ID.getCode())
-//                        .status(HttpStatus.BAD_REQUEST)
-//                        .build());
-        List<AuthorDetail> author = authorRepository.findByIdDetail(authorId);
+    public AuthorDetail getAuthor(Long authorId) {
+        Author author = authorRepository.findByIdDetail(authorId).orElseThrow(
+                () -> ApiException.builder()
+                        .errorMessage(AuthorErrorCode.NOT_FOUND_ID.getMessage())
+                        .errorCode(AuthorErrorCode.NOT_FOUND_ID.getCode())
+                        .status(HttpStatus.BAD_REQUEST)
+                        .build());
 
-        return author;
+        return AuthorDetail.toDto(author);
     }
 
     @Override

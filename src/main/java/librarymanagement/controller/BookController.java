@@ -25,7 +25,6 @@ public class BookController {
 
     private final BookService bookService;
 
-    // 도서 등록도 추가
     @PostMapping("")
     public ResponseEntity<?> addBook(@RequestBody BookRequest bookRequest) {
         bookService.addBook(bookRequest);

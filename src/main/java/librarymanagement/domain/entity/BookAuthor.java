@@ -2,10 +2,12 @@ package librarymanagement.domain.entity;
 
 import librarymanagement.common.entity.BaseEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -23,4 +25,17 @@ public class BookAuthor extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private Author author;
+
+    @Builder(builderMethodName = "createBookAuthor", builderClassName = "createBookAuthor")
+    public BookAuthor(Book book, Author author) {
+        this.book = book;
+        this.author = author;
+    }
+
+    public static BookAuthor addBookAuthor(Book bookId, Author authorId) {
+        return createBookAuthor()
+                .book(bookId)
+                .author(authorId)
+                .build();
+    }
 }

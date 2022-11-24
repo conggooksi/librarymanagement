@@ -1,4 +1,4 @@
-package librarymanagement.repository;
+package librarymanagement.repository.impl;
 
 import librarymanagement.domain.entity.Book;
 import librarymanagement.domain.request.BookSearch;

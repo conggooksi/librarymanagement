@@ -1,8 +1,6 @@
 package librarymanagement.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import librarymanagement.domain.entity.Author;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

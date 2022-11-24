@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum PublisherErrorCode {
-    NOT_FOUND_ID("NOT_FOUND_ID", "아이디를 찾지 못했습니다."),
+    NOT_FOUND_ID("NOT_FOUND_ID", "출판사 아이디를 찾지 못했습니다."),
     OVERLAP_PUBLISHER("FAIL_ADD_PUBLISHER", "이미 등록된 출판사입니다.");
     private final String code;
     private final String message;

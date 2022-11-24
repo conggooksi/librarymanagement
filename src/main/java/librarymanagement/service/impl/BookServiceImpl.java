@@ -1,12 +1,20 @@
 package librarymanagement.service.impl;
 
 import librarymanagement.common.exception.ApiException;
+import librarymanagement.common.exception.code.AuthorErrorCode;
 import librarymanagement.common.exception.code.BookErrorCode;
+import librarymanagement.common.exception.code.PublisherErrorCode;
+import librarymanagement.domain.entity.Author;
 import librarymanagement.domain.entity.Book;
+import librarymanagement.domain.entity.BookAuthor;
+import librarymanagement.domain.entity.Publisher;
 import librarymanagement.domain.request.BookRequest;
 import librarymanagement.domain.request.BookSearch;
 import librarymanagement.domain.response.BookResponse;
+import librarymanagement.repository.AuthorRepository;
+import librarymanagement.repository.BookAuthorRepository;
 import librarymanagement.repository.BookRepository;
+import librarymanagement.repository.PublisherRepository;
 import librarymanagement.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,12 +23,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
+    private final AuthorRepository authorRepository;
+    private final BookAuthorRepository bookAuthorRepository;
 
     @Override
     public Page<BookResponse> getBooks(BookSearch bookSearch, Pageable pageable) {
@@ -44,9 +57,36 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public Long addBook(BookRequest bookRequest) {
-        bookRequest.toEntity(bookRequest);
+        Publisher publisherId = publisherRepository.findById(bookRequest.getPublisherId()).orElseThrow(
+                () -> ApiException.builder()
+                        .errorMessage(PublisherErrorCode.NOT_FOUND_ID.getMessage())
+                        .errorCode(PublisherErrorCode.NOT_FOUND_ID.getCode())
+                        .status(HttpStatus.BAD_REQUEST)
+                        .build());
 
-        return null;
+        Book book = bookRequest.toEntity(bookRequest, publisherId);
+        Book savedBook = bookRepository.save(book);
+
+        Book bookId = bookRepository.findById(savedBook.getId()).orElseThrow(
+                () -> ApiException.builder()
+                        .errorMessage(BookErrorCode.NOT_FOUND_ID.getMessage())
+                        .errorCode(BookErrorCode.NOT_FOUND_ID.getCode())
+                        .status(HttpStatus.BAD_REQUEST)
+                        .build());
+
+        for (Long id : bookRequest.getAuthorIds()) {
+            Author authorId = authorRepository.findById(id).orElseThrow(
+                    () -> ApiException.builder()
+                            .errorMessage(AuthorErrorCode.NOT_FOUND_ID.getMessage())
+                            .errorCode(AuthorErrorCode.NOT_FOUND_ID.getCode())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .build());
+            BookAuthor result = BookAuthor.addBookAuthor(bookId, authorId);
+            bookAuthorRepository.save(result);
+        }
+
+        return savedBook.getId();
     }
 }
