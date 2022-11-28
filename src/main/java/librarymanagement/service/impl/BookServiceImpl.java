@@ -17,17 +17,20 @@ import librarymanagement.repository.BookRepository;
 import librarymanagement.repository.PublisherRepository;
 import librarymanagement.service.BookService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
@@ -67,26 +70,19 @@ public class BookServiceImpl implements BookService {
                         .build());
 
         Book book = bookRequest.toEntity(bookRequest, publisherId);
-        Book savedBook = bookRepository.save(book);
+        bookRepository.save(book);
 
-        Book bookId = bookRepository.findById(savedBook.getId()).orElseThrow(
-                () -> ApiException.builder()
-                        .errorMessage(BookErrorCode.NOT_FOUND_ID.getMessage())
-                        .errorCode(BookErrorCode.NOT_FOUND_ID.getCode())
-                        .status(HttpStatus.BAD_REQUEST)
-                        .build());
-
-        for (Long id : bookRequest.getAuthorIds()) {
-            Author authorId = authorRepository.findById(id).orElseThrow(
+        List<BookAuthor> bookAuthorList = bookRequest.getAuthorIds().stream().map(kid -> {
+            Author author = authorRepository.findById(kid).orElseThrow(
                     () -> ApiException.builder()
                             .errorMessage(AuthorErrorCode.NOT_FOUND_ID.getMessage())
                             .errorCode(AuthorErrorCode.NOT_FOUND_ID.getCode())
                             .status(HttpStatus.BAD_REQUEST)
                             .build());
-            BookAuthor result = BookAuthor.addBookAuthor(bookId, authorId);
-            bookAuthorRepository.save(result);
-        }
+            return BookAuthor.addBookAuthor(book, author);}).collect(Collectors.toList());
 
-        return savedBook.getId();
+        bookAuthorRepository.saveAll(bookAuthorList);
+
+        return book.getId();
     }
 }

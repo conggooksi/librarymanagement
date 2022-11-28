@@ -27,9 +27,12 @@ public class BookController {
 
     @PostMapping("")
     public ResponseEntity<?> addBook(@RequestBody BookRequest bookRequest) {
-        bookService.addBook(bookRequest);
+        Long bookId = bookService.addBook(bookRequest);
 
-        return null;
+        return ResponseHandler.generate()
+                .data(bookId)
+                .status(HttpStatus.OK)
+                .build();
     }
 
     @GetMapping("")

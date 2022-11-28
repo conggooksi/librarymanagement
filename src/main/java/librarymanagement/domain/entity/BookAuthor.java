@@ -32,10 +32,10 @@ public class BookAuthor extends BaseEntity {
         this.author = author;
     }
 
-    public static BookAuthor addBookAuthor(Book bookId, Author authorId) {
+    public static BookAuthor addBookAuthor(Book book, Author author) {
         return createBookAuthor()
-                .book(bookId)
-                .author(authorId)
+                .book(book)
+                .author(author)
                 .build();
     }
 }
